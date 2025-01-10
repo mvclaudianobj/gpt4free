@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G4F GUI</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
-    <link rel="manifest" href="/static/img/site.webmanifest">
+    <title>FenixGPT</title>
     <style>
         :root {
             --colour-1: #000000;
@@ -202,11 +198,11 @@
     <!-- Main Content -->
     <div class="container">
         <header>
-            G4F GUI
+            FenixGPT
         </header>
         <div class="description">
-            Welcome to the G4F GUI! <br>
-            Your AI assistant is ready to assist you.
+            Bem Vindo ao FenixGPT! <br>
+            Seu assistente IA sem limites.
         </div>
 
         <!-- Input and Button -->
@@ -214,13 +210,13 @@
             <!--
                 <input type="text" name="prompt" class="input-field" placeholder="Enter your query...">
             -->
-            <button class="button">Open Chat</button>
+            <button class="button">Abrir Chat</button>
         </form>
 
         <!-- Footer -->
         <div class="footer">
-            <p>&copy; 2025 G4F. All Rights Reserved.</p>
-            <p>Powered by the G4F framework</p>
+            <p>&copy; 2025 FenixGPT. All Rights Reserved.</p>
+            <p>Powered by the FenixGPT framework</p>
         </div>
 
         <iframe class="stream-widget" frameborder="0"></iframe>
@@ -291,7 +287,7 @@
 
         (async () => {
             const today = new Date().toJSON().slice(0, 10);
-            const max = 5;
+            const max = 100;
             const cache_id = Math.floor(Math.random() * max);
             let prompt;
             if (cache_id % 2 == 0) {
@@ -311,4 +307,3 @@
         })();
     </script>
 </body>
-</html>

@@ -743,7 +743,7 @@ const ask_gpt = async (message_id, message_index = -1, regenerate = false, provi
     message_storage[message_id] = "";
     stop_generating.classList.remove("stop_generating-hidden");
     let scroll = true;
-    if (message_index >= 0 && parseInt(message_index) + 1 < conversation.items.length) {
+    if (message_index > 0 && parseInt(message_index, 10) + 1 < conversation.items.length) {
         scroll = false;
     }
 
@@ -1044,7 +1044,7 @@ const load_conversation = async (conversation_id, scroll=true) => {
         return;
     }
     let title = conversation.title || conversation.new_title;
-    title = title ? `${title} - g4f` : window.title;
+    title = title ? `${title} - FenixGPT` : window.title;
     if (title) {
         document.title = title;
     }
@@ -1110,7 +1110,7 @@ const load_conversation = async (conversation_id, scroll=true) => {
             if (lastLine.endsWith("[aborted]") || lastLine.endsWith("[error]")) {
                 reason = "error";
             // Has an even number of start or end code tags
-            } else if (reason == "stop" && buffer.split("```").length - 1 % 2 === 1) {
+            } else if (reason = "stop" && buffer.split("```").length - 1 % 2 === 1) {
                 reason = "length";
             }
             if (reason == "length" || reason == "max_tokens" || reason == "error") {
@@ -1724,18 +1724,18 @@ async function on_api() {
                 option.dataset.parent = provider.parent;
             providerSelect.appendChild(option);
 
-            if (provider.parent) {
-                if (!login_urls[provider.parent]) {
-                    login_urls[provider.parent] = [provider.label, provider.login_url, [provider.name]];
-                } else {
-                    login_urls[provider.parent][2].push(provider.name);
-                }
-            } else if (provider.login_url) {
+            if (provider.login_url) {
                 if (!login_urls[provider.name]) {
                     login_urls[provider.name] = [provider.label, provider.login_url, []];
                 } else {
                     login_urls[provider.name][0] = provider.label;
                     login_urls[provider.name][1] = provider.login_url;
+                }
+            } else if (provider.parent) {
+                if (!login_urls[provider.parent]) {
+                    login_urls[provider.parent] = [provider.label, provider.login_url, [provider.name]];
+                } else {
+                    login_urls[provider.parent][2].push(provider.name);
                 }
             }
         });
@@ -1746,10 +1746,9 @@ async function on_api() {
             option = document.createElement("div");
             option.classList.add("field", "box", "hidden");
             childs = childs.map((child)=>`${child}-api_key`).join(" ");
-            console.log(childs);
             option.innerHTML = `
                 <label for="${name}-api_key" class="label" title="">${label}:</label>
-                <input type="text" id="${name}-api_key" name="${name}[api_key]" class="${childs}" placeholder="api_key"/>
+                <textarea id="${name}-api_key" name="${name}[api_key]" class="${childs}" placeholder="api_key"></textarea>
                 <a href="${login_url}" target="_blank" title="Login to ${label}">Get API key</a>
             `;
             settings.querySelector(".paper").appendChild(option);
@@ -1831,8 +1830,8 @@ async function load_version() {
     let new_version = document.querySelector(".new_version");
     if (new_version) return;
     const versions = await api("version");
-    window.title = 'g4f - ' + versions["version"];
-    if (document.title == "g4f - gui") {
+    window.title = 'FenixGPT - ' + versions["version"];
+    if (document.title == "FenixGPT - gui") {
         document.title = window.title;
     }
     let text = "version ~ "
@@ -1843,7 +1842,7 @@ async function load_version() {
         new_version = document.createElement("div");
         new_version.classList.add("new_version");
         const link = `<a href="${release_url}" target="_blank" title="${title}">v${versions["latest_version"]}</a>`;
-        new_version.innerHTML = `G4F ${link}&nbsp;&nbsp;🆕`;
+        new_version.innerHTML = `FenixGPT ${link}&nbsp;&nbsp;🆕`;
         new_version.addEventListener("click", ()=>new_version.parentElement.removeChild(new_version));
         document.body.appendChild(new_version);
     } else {
@@ -1958,7 +1957,7 @@ fileInput.addEventListener('change', async (event) => {
             reader.addEventListener('load', async (event) => {
                 fileInput.dataset.text = event.target.result;
                 const data = JSON.parse(fileInput.dataset.text);
-                if (data.options && "g4f" in data.options) {
+                if (data.options && "FenixGPT" in data.options) {
                     let count = 0;
                     Object.keys(data).forEach(key => {
                         if (key != "options" && !localStorage.getItem(key)) {
@@ -2151,7 +2150,7 @@ searchButton.addEventListener("click", async () => {
 
 function save_storage() {
     let filename = `chat ${new Date().toLocaleString()}.json`.replaceAll(":", "-");
-    let data = {"options": {"g4f": ""}};
+    let data = {"options": {"FenixGPT": ""}};
     for (let i = 0; i < appStorage.length; i++) {
         let key = appStorage.key(i);
         let item = appStorage.getItem(key);
