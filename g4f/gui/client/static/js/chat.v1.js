@@ -1836,7 +1836,7 @@ async function load_version() {
     }
     let text = "version ~ "
     if (versions["version"] != versions["latest_version"]) {
-        let release_url = 'https://github.com/xtekky/gpt4free/releases/latest';
+        let release_url = 'https://chat.fenixsis.site/';
         let title = `New version: ${versions["latest_version"]}`;
         text += `<a href="${release_url}" target="_blank" title="${title}">${versions["version"]}</a> 🆕`;
         new_version = document.createElement("div");
