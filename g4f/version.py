@@ -75,7 +75,8 @@ class VersionUtils:
             pass
 
         # Read from docker environment
-        version = environ.get("G4F_VERSION")
+        #version = environ.get("G4F_VERSION")
+        version = "4.0.9"
         if version:
             return version
 
